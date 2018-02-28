@@ -30,6 +30,11 @@
         <div class="content">
         	<input name="username" type="text" class="input username" value="<?php echo set_value('username') ?>" placeholder="Username" />
           <input name="password" type="password" class="input password" value="<?php echo set_value('password') ?>" placeholder="Password" />
+
+          <label class="select">Tahun Anggaran</label>
+          <select id="option_year" class="option" name="tahun_anggaran" >
+
+          </select>
         </div>
 
         <div class="footer">
@@ -75,6 +80,13 @@
     	});
     });
     $('.alert-success, .alert-warning').delay(3000).fadeOut('slow');
+    //get year
+    $.getJSON("<?php echo base_url('login/year/') ?>", function(data) {
+    $("#option_year option").remove();
+    $.each(data, function(){
+        $("#option_year").append('<option value="'+ this.tahun +'">'+ this.tahun +'</option>');
+    })
+})
 </script>
 </body>
 </html>

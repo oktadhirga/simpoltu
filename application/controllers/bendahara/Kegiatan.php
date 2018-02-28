@@ -14,6 +14,7 @@ class Kegiatan extends CI_Controller {
 		$this->load->model('rekening_model', 'rekening');
 		$this->load->model('rekening_max_model', 'rekening_max');
 		$this->id_user = $this->session->userdata('id_user');
+		$this->tahun = $this->session->userdata('tahun');
 		$this->login_lib->cek_login();
 		$this->login_lib->cek_admin();
 	}
@@ -41,26 +42,30 @@ class Kegiatan extends CI_Controller {
 		$i = 1;
 		foreach ($list as $kegiatan) {
 			if ($kegiatan->id_user == $this->id_user) {
-
-				$no++;
-				$row = array();
-				$row[] = $i;
-				$row[] = $kegiatan->nama_kegiatan;
-				$row[] = $kegiatan->nama_program;
-				$row[] = $pengaturan[2]->nilai_pengaturan.''.$kegiatan->rekening_program.'.'.$kegiatan->rekening_kegiatan;
-				$row[] = $kegiatan->nama_kpa;
-				$row[] = $kegiatan->nama_pptk;
+				if ($kegiatan->tahun == $this->tahun) {
 
 
-				//add html for action
-				$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-									<a class="btn btn-sm btn-success" href="'.base_url('bendahara/kegiatan/anggaran/').$kegiatan->id_kegiatan.'" title="Edit Anggaran Belanja"><i class="glyphicon glyphicon-credit-card"></i> Angg. Belanja</a>';
-				// $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-				// <a class="btn btn-sm btn-success" href="javascript:void(0)" title="Edit Rekening Belanja" onclick="edit_rekening('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-credit-card"></i> Rek. Belanja</a>
-				// <a class="btn btn-sm btn-success" href="'.base_url('bendahara/kegiatan/anggaran/').$kegiatan->id_kegiatan.'" title="Edit Anggaran Belanja"><i class="glyphicon glyphicon-credit-card"></i> Angg. Belanja</a>';
 
-				$data[] = $row;
-				$i++;
+					$no++;
+					$row = array();
+					$row[] = $i;
+					$row[] = $kegiatan->nama_kegiatan;
+					$row[] = $kegiatan->nama_program;
+					$row[] = $pengaturan[2]->nilai_pengaturan.''.$kegiatan->rekening_program.'.'.$kegiatan->rekening_kegiatan;
+					$row[] = $kegiatan->nama_kpa;
+					$row[] = $kegiatan->nama_pptk;
+
+
+					//add html for action
+					$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+										<a class="btn btn-sm btn-success" href="'.base_url('bendahara/kegiatan/anggaran/').$kegiatan->id_kegiatan.'" title="Edit Anggaran Belanja"><i class="glyphicon glyphicon-credit-card"></i> Angg. Belanja</a>';
+					// $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+					// <a class="btn btn-sm btn-success" href="javascript:void(0)" title="Edit Rekening Belanja" onclick="edit_rekening('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-credit-card"></i> Rek. Belanja</a>
+					// <a class="btn btn-sm btn-success" href="'.base_url('bendahara/kegiatan/anggaran/').$kegiatan->id_kegiatan.'" title="Edit Anggaran Belanja"><i class="glyphicon glyphicon-credit-card"></i> Angg. Belanja</a>';
+
+					$data[] = $row;
+					$i++;
+				}
 			}
 		}
 

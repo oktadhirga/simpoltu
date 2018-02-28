@@ -16,6 +16,7 @@ class Panjar extends CI_Controller {
 		$this->load->model('rekening_model', 'rekening');
 		$this->load->model('rekening_max_model', 'rekening_max');
 		$this->id_user = $this->session->userdata('id_user');
+		$this->tahun = $this->session->userdata('tahun');
 		$this->login_lib->cek_login();
 		$this->login_lib->cek_admin();
 	}
@@ -43,6 +44,9 @@ class Panjar extends CI_Controller {
 		$i = 1;
 		foreach ($list as $panjar) {
 			if ($panjar->id_user == $this->id_user) {
+				if ($panjar->tahun == $this->tahun) {
+
+
 						//cek in spj
 						$status = $this->spj->get_status($panjar->id_panjar);
 
@@ -68,6 +72,7 @@ class Panjar extends CI_Controller {
 
 						$data[] = $row;
 						$i++;
+					}
 			}
 		}
 

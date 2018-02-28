@@ -11,6 +11,7 @@ class Ls extends CI_Controller {
 		$this->load->model('ls_model', 'ls');
 		$this->load->model('ls_detail_model', 'ls_detail');
 		$this->id_user = $this->session->userdata('id_user');
+		$this->tahun = $this->session->userdata('tahun');
 		$this->login_lib->cek_login();
 		$this->login_lib->cek_admin();
 	}
@@ -38,6 +39,7 @@ class Ls extends CI_Controller {
 		$i = 1;
 		foreach ($list as $ls) {
 			if ($ls->id_user == $this->id_user) {
+				if ($ls->tahun == $this->tahun) {
 
 						$no++;
 						$row = array();
@@ -54,6 +56,7 @@ class Ls extends CI_Controller {
 
 						$data[] = $row;
 						$i++;
+				}
 			}
 		}
 

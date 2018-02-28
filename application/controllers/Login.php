@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('program_model','program');
 	}
 
 	public function index()
@@ -20,9 +21,10 @@ class Login extends CI_Controller {
 
 		$user=$this->input->post('username');
 		$pass=$this->input->post('password');
+		$tahun=$this->input->post('tahun_anggaran');
 
 		if($valid->run()){
-			$this->login_lib->login($user,$pass);
+			$this->login_lib->login($user,$pass, $tahun);
 		}
 
 		$data = array('title'=> 'Login');
@@ -31,5 +33,10 @@ class Login extends CI_Controller {
 
 	public function signout(){
 		$this->login_lib->logout();
+	}
+
+	public function year(){
+		$tahun = $this->program->get_year();
+		echo json_encode($tahun);
 	}
 }

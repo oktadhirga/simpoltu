@@ -10,7 +10,7 @@ class Login_lib {
 	}
 
 	// Login
-	public function login($username, $password) {
+	public function login($username, $password, $tahun) {
 		// Query untuk pencocokan data
 		$query = $this->CI->db->get_where('user', array(
 										'username' => $username,
@@ -33,11 +33,13 @@ class Login_lib {
 			// $this->CI->session->set_userdata('nip_user', $nip_user);
 			$this->CI->session->set_userdata('id_login', uniqid(rand()));
 			$this->CI->session->set_userdata('id_user', $id_user);
+
 			// $this->CI->session->set_userdata('pic_user', $pic_user);
 			// akses_level admin
       if ($akses_level == 'admin') {
           redirect(base_url('admin/program'));
       } else if ($akses_level == 'bendahara' || $akses_level == 'bendahara_gaji') {
+					$this->CI->session->set_userdata('tahun', $tahun);
 			    redirect(base_url('bendahara/dasbor'));
       } else {
 					$this->CI->session->sess_destroy();

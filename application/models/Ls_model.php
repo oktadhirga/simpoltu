@@ -19,6 +19,7 @@ class Ls_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from($this->table);
 		$this->db->join('kegiatan', 'ls.id_kegiatan = kegiatan.id_kegiatan', 'inner');
+		$this->db->join('program', 'kegiatan.id_program = program.id_program', 'inner');
 		$this->db->join('user', 'kegiatan.id_user = user.id_user', 'inner');
 
 
@@ -117,7 +118,9 @@ class Ls_model extends CI_Model {
 	{
 		$this->db->from($this->table);
 		$this->db->join('kegiatan', 'ls.id_kegiatan = kegiatan.id_kegiatan', 'inner');
+		$this->db->join('program', 'kegiatan.id_program = program.id_program', 'inner');
 		$this->db->where('id_user',$id_user);
+		$this->db->where('tahun', $this->session->userdata('tahun'));
 		$query = $this->db->get();
 
 		return $query->result();

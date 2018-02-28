@@ -117,7 +117,9 @@ class Kegiatan_model extends CI_Model {
 	public function get_by_user($id_user)
 	{
 		$this->db->from($this->table);
+		$this->db->join('program', 'kegiatan.id_program = program.id_program', 'inner');
 		$this->db->where('id_user',$id_user);
+		$this->db->where('tahun', $this->session->userdata('tahun'));
 		$this->db->group_by('id_kegiatan');
 		$query = $this->db->get();
 		return $query->result_array();

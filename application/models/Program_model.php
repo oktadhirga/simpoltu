@@ -112,9 +112,20 @@ class Program_model extends CI_Model {
 		$this->db->from($this->table);
 		$this->db->join('kegiatan','program.id_program = kegiatan.id_program','inner');
 		$this->db->where('id_user',$id_user);
+		$this->db->where('tahun', $this->session->userdata('tahun'));
 		$this->db->group_by('program.id_program');
 		$query = $this->db->get();
 		return $query->result_array();
+	}
+
+	public function get_year()
+	{
+		$this->db->select('tahun');
+		$this->db->from($this->table);
+		$this->db->group_by('tahun');
+		$this->db->order_by('tahun', 'desc');
+		$query = $this->db->get();
+		return $query->result();
 	}
 
 
