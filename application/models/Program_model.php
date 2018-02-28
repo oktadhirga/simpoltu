@@ -6,7 +6,7 @@ class Program_model extends CI_Model {
 	var $table = 'program';
 	var $column_order = array(null,'nama_program','rekening_program','tahun',null); //set column field database for datatable orderable
 	var $column_search = array('nama_program','tahun'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-	var $order = array('rekening_program' => 'asc'); // default order
+	var $order = array('tahun' => 'desc', 'rekening_program' => 'asc'); // default order
 
 	public function __construct()
 	{

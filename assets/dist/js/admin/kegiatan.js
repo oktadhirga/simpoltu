@@ -16,23 +16,9 @@ $('#tambah-kegiatan').click(function(){
       $('.help-block').empty(); // clear error string
       $('#modal-kegiatan').modal('show'); // show bootstrap modal
       $('.modal-title').text('Tambah Kegiatan'); // Set Title to Bootstrap modal title
-      //Ajax Load program from ajax
-      $.ajax({
-          url : base_url + "admin/kegiatan/option_program",
-          type: "GET",
-          dataType: "JSON",
-          success: function(data)
-          {
-
-              $('[name="option_program"]').html(data);
-              change_rekening();
-
-          },
-          error: function (jqXHR, textStatus, errorThrown)
-          {
-              alert('Error program data from ajax');
-          }
-      });
+      $('[name="id_program"]').val(id_program);
+      $('[name="nama_program"]').val(nama_program);
+      change_rekening(id_program);
       //Ajax Load user from ajax
       $.ajax({
           url : base_url + "admin/kegiatan/option_user",
@@ -121,7 +107,9 @@ function edit_kegiatan(id_kegiatan)
         dataType: "JSON",
         success: function(data)
         {
-
+            $('[name="id_program"]').val(id_program);
+            $('[name="nama_program"]').val(nama_program);
+            change_rekening(id_program);
             $('[name="id_kegiatan"]').val(data.id_kegiatan);
             $('[name="nama_kegiatan"]').val(data.nama_kegiatan);
             $('[name="rekening_kegiatan"]').val(data.rekening_kegiatan);
@@ -132,22 +120,7 @@ function edit_kegiatan(id_kegiatan)
             $('#modal-kegiatan').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Kegiatan'); // Set title to Bootstrap modal title
 
-            //Ajax Load option from ajax
-            $.ajax({
-                url : base_url + "admin/kegiatan/option_program_edit/" + data.id_program,
-                type: "GET",
-                dataType: "JSON",
-                success: function(data)
-                {
-                    $('[name="option_program"]').html(data);
-                    change_rekening();
 
-                },
-                error: function (jqXHR, textStatus, errorThrown)
-                {
-                    alert('Error get data from ajax');
-                }
-            });
             $.ajax({
                 url : base_url + "admin/kegiatan/option_user_edit/" + data.id_user,
                 type: "GET",
@@ -213,8 +186,7 @@ function delete_kegiatan(id_kegiatan)
 
 } //end-delete
 
-function change_rekening(){
-  var id_program = $('[name="option_program"]').val();
+function change_rekening(id_program){
   if (id_program == '') {
     $('#rekening').text('');
   } else {

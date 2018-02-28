@@ -1,5 +1,6 @@
 
         <div class="col-sm-12">
+          <p><a href="<?php echo base_url('admin/program') ?>" class="btn btn-sm btn-danger"><i class="fa fa-level-up"> Kembali</i></a></p>
           <div class="box">
             <div class="box-header">
               <h3 class="box-title"><?php echo $title; ?></h3>
@@ -7,7 +8,31 @@
             <!-- /.box-header -->
 
             <div class="box-body">
-            <p><button class="btn btn-success" id="tambah-kegiatan"><i class="fa fa-plus"> Tambah</i></button></p>
+              <div class="row">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Nama Program</label>
+                  <label class="col-sm-1 control-label">:</label>
+                  <label class="col-sm-9 control-label">
+                    <?php
+                      echo $program->nama_program;
+                    ?>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Tahun</label>
+                  <label class="col-sm-1 control-label">:</label>
+                  <label class="col-sm-9 control-label">
+                    <?php
+                      echo $program->tahun;
+                    ?>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="box-body">
+            <p><button class="btn btn-sm btn-success" id="tambah-kegiatan"><i class="fa fa-plus"> Tambah</i></button></p>
 
             <!--notifikasi -->
             <div class="box-body" id="notifikasi">
@@ -19,7 +44,6 @@
                 <tr>
                     <th>#</th>
                     <th>Nama Kegiatan</th>
-                    <th>Program</th>
                     <th>Rekening Kegiatan</th>
                     <th>KPA</th>
                     <th>PPTK</th>
@@ -48,19 +72,18 @@
                           <div class="box-body">
 
                             <input type="hidden" value="" name="id_kegiatan"/>
+                            <input type="hidden" value="" name="id_program"/>
                             <div class="form-group">
-                              <label class="col-sm-3 control-label">Nama Kegiatan</label>
+                              <label class="col-sm-3 control-label">Nama Program</label>
                               <div class="col-sm-9">
-                                <input type="text" class="form-control" name="nama_kegiatan" value="" required>
+                                <input type="text" class="form-control" name="nama_program" value="" required disabled>
                                 <span class="help-block"></span>
                               </div>
                             </div>
                             <div class="form-group">
-                              <label class="col-sm-3 control-label">Program</label>
+                              <label class="col-sm-3 control-label">Nama Kegiatan</label>
                               <div class="col-sm-9">
-                                <select class="form-control" name="option_program" onchange="change_rekening()">
-
-                                </select>
+                                <input type="text" class="form-control" name="nama_kegiatan" value="" required>
                                 <span class="help-block"></span>
                               </div>
                             </div>

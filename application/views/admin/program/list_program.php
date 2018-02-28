@@ -21,7 +21,7 @@
                     <th>Nama Program</th>
                     <th>Rekening</th>
                     <th>Tahun</th>
-                    <th style="width:125px;">Action</th>
+                    <th style="width:150px;">Action</th>
                 </tr>
             </thead>
             <tbody>

@@ -17,18 +17,23 @@
 <!-- page script -->
 <script>
 var base_url = '<?php echo base_url() ?>';
+var id_program = '<?php echo $program->id_program ?>';
+var nama_program = '<?php echo $program->nama_program ?>';
 $(document).ready(function() {
       //datatables
       $('#notifikasi').hide();
       table = $('#table').DataTable({
-
+          "paging":   false,
+          "ordering": false,
+          "info":     false,
+          "filter"  : false,
           "processing": true, //Feature control the processing indicator.
           "serverSide": true, //Feature control DataTables' server-side processing mode.
           "order": [], //Initial no order.
 
           // Load data for the table's content from an Ajax source
           "ajax": {
-              "url": "<?php echo base_url('admin/kegiatan/ajax_list')?>",
+              "url": "<?php echo base_url('admin/kegiatan/ajax_list/').$program->id_program ?>",
               "type": "POST"
           },
 

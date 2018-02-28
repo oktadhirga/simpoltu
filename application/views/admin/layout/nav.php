@@ -23,8 +23,7 @@
          </a>
          <ul class="treeview-menu">
            <li><a href="<?php echo base_url('admin/user'); ?>"><i class="fa fa-circle-o"></i>Data User</a></li>
-           <li><a href="<?php echo base_url('admin/program'); ?>"><i class="fa fa-circle-o"></i>Data Program</a></li>
-           <li><a href="<?php echo base_url('admin/kegiatan'); ?>"><i class="fa fa-circle-o"></i>Data Kegiatan</a></li>
+           <li><a href="<?php echo base_url('admin/program'); ?>"><i class="fa fa-circle-o"></i>Data Program-Kegiatan</a></li>
            <li><a href="<?php echo base_url('admin/rekening'); ?>"><i class="fa fa-circle-o"></i>Data Rekening Belanja</a></li>
          </ul>
        </li>

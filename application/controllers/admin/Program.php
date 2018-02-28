@@ -45,8 +45,9 @@ class Program extends CI_Controller {
 			$row[] = $program->tahun;
 
 			//add html for action
-			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_program('."'".$program->id_program."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_program('."'".$program->id_program."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_program('."'".$program->id_program."'".')"><i class="glyphicon glyphicon-pencil"></i></a>
+				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_program('."'".$program->id_program."'".')"><i class="glyphicon glyphicon-trash"></i></a>
+					<a class="btn btn-sm btn-success" href="'.base_url('admin/program/kegiatan/').$program->id_program.'" title="Kegiatan""> Kegiatan <i class="glyphicon glyphicon-play"></i></a>';
 
 			$data[] = $row;
 			$i++;
@@ -133,6 +134,22 @@ class Program extends CI_Controller {
 			echo json_encode($data);
 			exit();
 		}
+	}
+
+	public function kegiatan($id_program)
+	{
+		$pengaturan = $this->pengaturan->listing();
+		$program = $this->program->get_by_id($id_program);
+		$data = array('title' => 'Halaman kegiatan',
+						  		'isi'  => 'admin/kegiatan/list_kegiatan',
+									'foot' => 'admin/kegiatan/foot_kegiatan',
+									'breadcrum1' => 'Data Master',
+									'breadcrum2' => 'Kegiatan',
+									'pengaturan' => $pengaturan,
+									'program'	=> $program
+								);
+
+		$this->load->view('admin/layout/wrapper', $data);
 	}
 
 

@@ -14,21 +14,21 @@ class Kegiatan extends CI_Controller {
 		$this->login_lib->cek_bendahara();
 	}
 
-	public function index()
-	{
-		$pengaturan = $this->pengaturan->listing();
-		$data = array('title' => 'Halaman kegiatan',
-						  		'isi'  => 'admin/kegiatan/list_kegiatan',
-									'foot' => 'admin/kegiatan/foot_kegiatan',
-									'breadcrum1' => 'Data Master',
-									'breadcrum2' => 'Kegiatan',
-									'pengaturan' => $pengaturan
-								);
+	// public function index()
+	// {
+	// 	$pengaturan = $this->pengaturan->listing();
+	// 	$data = array('title' => 'Halaman kegiatan',
+	// 					  		'isi'  => 'admin/kegiatan/list_kegiatan',
+	// 								'foot' => 'admin/kegiatan/foot_kegiatan',
+	// 								'breadcrum1' => 'Data Master',
+	// 								'breadcrum2' => 'Kegiatan',
+	// 								'pengaturan' => $pengaturan,
+	// 							);
+	//
+	// 	$this->load->view('admin/layout/wrapper', $data);
+	// }
 
-		$this->load->view('admin/layout/wrapper', $data);
-	}
-
-	public function ajax_list()
+	public function ajax_list($id_program)
 	{
 		$pengaturan = $this->pengaturan->listing();
 		$list = $this->kegiatan->get_datatables();
@@ -36,23 +36,24 @@ class Kegiatan extends CI_Controller {
 		$no = $_POST['start'];
 		$i = 1;
 		foreach ($list as $kegiatan) {
-			$no++;
-			$row = array();
-			$row[] = $i;
-			$row[] = $kegiatan->nama_kegiatan;
-			$row[] = $kegiatan->nama_program;
-			$row[] = $pengaturan[2]->nilai_pengaturan.''.$kegiatan->rekening_program.' . '.$kegiatan->rekening_kegiatan;
-			$row[] = $kegiatan->nama_kpa;
-			$row[] = $kegiatan->nama_pptk;
-			$row[] = $kegiatan->nama_user;
+			if ($kegiatan->id_program == $id_program) {
+
+					$row = array();
+					$row[] = $i;
+					$row[] = $kegiatan->nama_kegiatan;
+					$row[] = $pengaturan[2]->nilai_pengaturan.''.$kegiatan->rekening_program.' . '.$kegiatan->rekening_kegiatan;
+					$row[] = $kegiatan->nama_kpa;
+					$row[] = $kegiatan->nama_pptk;
+					$row[] = $kegiatan->nama_user;
 
 
-			//add html for action
-			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+					//add html for action
+					$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+						  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_kegiatan('."'".$kegiatan->id_kegiatan."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
 
-			$data[] = $row;
-			$i++;
+					$data[] = $row;
+					$i++;
+			}
 		}
 
 		$output = array(
@@ -77,7 +78,7 @@ class Kegiatan extends CI_Controller {
 		$data = array(
 				'nama_kegiatan' => $this->input->post('nama_kegiatan'),
 				'rekening_kegiatan' => $this->input->post('rekening_kegiatan'),
-				'id_program' => $this->input->post('option_program'),
+				'id_program' => $this->input->post('id_program'),
 				'id_user' => $this->input->post('option_user'),
 				'nama_kpa' => $this->input->post('nama_kpa'),
 				'nip_kpa' => $this->input->post('nip_kpa'),
@@ -94,7 +95,6 @@ class Kegiatan extends CI_Controller {
 		$data = array(
 				'nama_kegiatan' => $this->input->post('nama_kegiatan'),
 				'rekening_kegiatan' => $this->input->post('rekening_kegiatan'),
-				'id_program' => $this->input->post('option_program'),
 				'id_user' => $this->input->post('option_user'),
 				'nama_kpa' => $this->input->post('nama_kpa'),
 				'nip_kpa' => $this->input->post('nip_kpa'),
@@ -125,20 +125,7 @@ class Kegiatan extends CI_Controller {
 			$data['error_string'][] = 'Nama kegiatan harus diisi';
 			$data['status'] = FALSE;
 		}
-		//
-		// if($this->input->post('rekening_kegiatan') == '')
-		// {
-		// 	$data['inputerror'][] = 'rekening_kegiatan';
-		// 	$data['error_string'][] = 'Rekening kegiatan harus diisi';
-		// 	$data['status'] = FALSE;
-		// }
 
-		if($this->input->post('option_program') == '')
-		{
-			$data['inputerror'][] = 'option_program';
-			$data['error_string'][] = 'Program harus diisi';
-			$data['status'] = FALSE;
-		}
 
 		if($this->input->post('option_user') == '')
 		{
